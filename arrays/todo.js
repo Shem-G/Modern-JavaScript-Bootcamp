@@ -1,15 +1,31 @@
-const todos = ['Learn JS', 'Make bird game', 'Make website', 'Get healthy', 'Play games']
+const todos = [{
+    text: 'Learn JS',
+    completed: true
+}, {
+    text: 'Make bird game',
+    completed: true
+}, {
+    text: 'Make website',
+    completed: false
+}, {
+    text: 'Get healthy',
+    completed: false
+}, {
+    text: 'Play games',
+    completed: false
+}]
 
-todos.splice(2, 1)
-todos.push('Finish this module')
-todos.shift()
+// Convert the ray of strings to objects: Text, Completed - DONE
+// Create function to remove a todo by text value
 
-console.log(`You have ${todos.length} todos on your list`)
+const deleteTodo = function (todos, todoText) {
+    const index = todos.findIndex(function (todo){
+        return todo.text.toLowerCase() === todoText.toLowerCase()  
+    })
+    if (index > -1){
+        todos.splice(index, 1)
+    }
+}
 
-//1. First item
-// 2. Second item
-
-todos.forEach(function (item, index){
-    const num = index + 1
-    console.log(`${num}. ${item}`)
-})
+deleteTodo(todos, 'Play Games')
+console.log(todos)

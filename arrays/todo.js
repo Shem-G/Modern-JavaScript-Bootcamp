@@ -3,10 +3,10 @@ const todos = [{
     completed: true
 }, {
     text: 'Make bird game',
-    completed: true
+    completed: false
 }, {
     text: 'Make website',
-    completed: false
+    completed: true
 }, {
     text: 'Get healthy',
     completed: false
@@ -15,8 +15,6 @@ const todos = [{
     completed: false
 }]
 
-// Convert the ray of strings to objects: Text, Completed - DONE
-// Create function to remove a todo by text value
 
 const deleteTodo = function (todos, todoText) {
     const index = todos.findIndex(function (todo){
@@ -27,5 +25,14 @@ const deleteTodo = function (todos, todoText) {
     }
 }
 
-deleteTodo(todos, 'Play Games')
-console.log(todos)
+//only return false values
+const getThingsTodo = function (todos) {
+    return todos.filter(function (todo){
+        return !todo.completed
+    })
+}
+
+console.log(getThingsTodo(todos))
+
+//deleteTodo(todos, 'Play Games')
+//console.log(todos)

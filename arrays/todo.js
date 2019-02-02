@@ -6,15 +6,27 @@ const todos = [{
     completed: false
 }, {
     text: 'Make website',
-    completed: true
+    completed: false
 }, {
     text: 'Get healthy',
-    completed: false
+    completed: true
 }, {
     text: 'Play games',
     completed: false
 }]
 
+const sortTodos = function () {
+    todos.sort(function (a, b) {
+        if (!a.completed && b.completed) {
+            return -1
+        } else if (!b.completed && a.completed) {
+            return 1
+        }
+        else {
+            return 0
+        }
+    })
+}
 
 const deleteTodo = function (todos, todoText) {
     const index = todos.findIndex(function (todo){
@@ -25,14 +37,16 @@ const deleteTodo = function (todos, todoText) {
     }
 }
 
-//only return false values
 const getThingsTodo = function (todos) {
     return todos.filter(function (todo){
         return !todo.completed
     })
 }
 
-console.log(getThingsTodo(todos))
+sortTodos(todos)
+console.log(todos)
+
+//console.log(getThingsTodo(todos))
 
 //deleteTodo(todos, 'Play Games')
-//console.log(todos)
+//console.log(todos) 

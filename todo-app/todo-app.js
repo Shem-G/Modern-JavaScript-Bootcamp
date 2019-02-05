@@ -15,8 +15,11 @@ const todos = [{
     completed: false
 }]
 
-// You have 2 todos left (p element)
-// add p for each todo (use text value)
+
+document.querySelector('#add-todo').addEventListener('click', function(e){
+    console.log('Todo added')
+})
+
 const incompleteTodos = todos.filter(function (todo){
         return !todo.completed
     })

@@ -9,12 +9,12 @@ const notes = [{
     body: 'Order new mouse'
 }]
 
-const ps = document.querySelectorAll('p')
-ps.forEach(function(p){
-    p.textContent = "bloogi"
+document.querySelector('#create-note').addEventListener('click', function(e){
+    e.target.textContent = 'The button was clicked'
 })
 
-// Add a new element
-const newParagraph = document.createElement('p')
-newParagraph.textContent = 'Cuddle up to blerj'
-document.querySelector('body').appendChild(newParagraph)
+document.querySelector('#remove-all').addEventListener('click', function (){
+    document.querySelectorAll('.note').forEach(function(note){
+        note.remove()
+    })
+})

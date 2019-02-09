@@ -15,29 +15,28 @@ const todos = [{
     completed: false
 }]
 
-//1. setup div for todos
-//2. setup filters (searchText) and wire up a new filter
-//3. Create a renderTodos function to render and rerender the filtered data
-
-//starts
-
 const filters = {
-    searchText: ''
+    searchText: '',
+    hideCompleted: false 
 }
 
 const renderTodos = function(todos, filters){
     const filteredTodos = todos.filter(function (todo){
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        const hideCompletedMatch = !filters.hideCompleted || !todo.completed
+
+        return searchTextMatch && hideCompletedMatch
     })
 
     const incompleteTodos = filteredTodos.filter(function (todo){
         return !todo.completed
     })
 
+
     document.querySelector('#todo-list').innerHTML = ''
 
-    const summary = document.createElement('p')
-    summary.textContent = `You have todos ${incompleteTodos.length} left`
+    const summary = document.createElement('h2')
+    summary.textContent = `You have ${incompleteTodos.length} todos left`
     document.querySelector('#todo-list').appendChild(summary)
 
     filteredTodos.forEach(function (e){
@@ -45,22 +44,32 @@ const renderTodos = function(todos, filters){
         p.innerText = e.text
         document.querySelector('#todo-list').appendChild(p)
     })
- }
+}
 
 renderTodos(todos, filters)
 
-
-document.querySelector('#add-todo').addEventListener('click', function (e){
-console.log('Add a new todo')
-})
-
-//Listen for todo text change
-document.querySelector('#new-todo-text').addEventListener('input', function(e){
-    console.log(e.target.value)
-})
-
-document.querySelector('#search-todo').addEventListener('input', function(e){
+document.querySelector('#search-text').addEventListener('input', function(e){
     filters.searchText = e.target.value
     renderTodos(todos, filters)
     
 })
+
+document.querySelector('#new-todo-form').addEventListener('submit', function(e){
+    e.preventDefault()
+    todos.push({
+        text: e.target.elements.todoText.value,
+        completed: false
+    })
+    renderTodos(todos, filters)
+    e.target.elements.todoText.value = ''    
+})
+
+document.querySelector('#hide-completed').addEventListener('change', function(e){
+    filters.hideCompleted = e.target.checked
+    renderTodos(todos, filters)
+})
+
+// 1. Create checkbox and setup event listener to "Hide completed" X
+// 2. Create new hideCompleted filter (default false) X
+// 3. Update hideCompleted and rerender list on checkbox change
+// 4. Setup renderTodos to remove completed items

@@ -1,23 +1,14 @@
-const todos = [{
-    text: 'Learn JS',
-    completed: true
-}, {
-    text: 'Make bird game',
-    completed: false
-}, {
-    text: 'Make website',
-    completed: false
-}, {
-    text: 'Get healthy',
-    completed: true
-}, {
-    text: 'Play games',
-    completed: false
-}]
+let todos = []
 
 const filters = {
     searchText: '',
     hideCompleted: false 
+}
+
+const todosJSON = localStorage.getItem('todos')
+
+if(todosJSON !== null){
+    todos = JSON.parse(todosJSON)
 }
 
 const renderTodos = function(todos, filters){
@@ -41,7 +32,7 @@ const renderTodos = function(todos, filters){
 
     filteredTodos.forEach(function (e){
         const p = document.createElement('p')
-        p.innerText = e.text
+        p.textContent = e.text
         document.querySelector('#todo-list').appendChild(p)
     })
 }
@@ -60,16 +51,11 @@ document.querySelector('#new-todo-form').addEventListener('submit', function(e){
         text: e.target.elements.todoText.value,
         completed: false
     })
-    renderTodos(todos, filters)
-    e.target.elements.todoText.value = ''    
+    localStorage.setItem('todos', JSON.stringify(todos))
+    renderTodos(todos, filters)    
 })
 
 document.querySelector('#hide-completed').addEventListener('change', function(e){
     filters.hideCompleted = e.target.checked
     renderTodos(todos, filters)
 })
-
-// 1. Create checkbox and setup event listener to "Hide completed" X
-// 2. Create new hideCompleted filter (default false) X
-// 3. Update hideCompleted and rerender list on checkbox change
-// 4. Setup renderTodos to remove completed items

@@ -18,6 +18,7 @@ document.querySelector('#search-text').addEventListener('input', function(e){
 document.querySelector('#new-todo-form').addEventListener('submit', function(e){
     e.preventDefault()
     todos.push({
+        id: uuidv4(),
         text: e.target.elements.todoText.value,
         completed: false
     })
@@ -29,18 +30,3 @@ document.querySelector('#hide-completed').addEventListener('change', function(e)
     filters.hideCompleted = e.target.checked
     renderTodos(todos, filters)
 })
-
-// Fetch existing todos from localStorage X
-// getSavedTodos X
-
-// Save todos to localStorage X
-// saveTodos X
-
-// Render application todos based on filters X
-// renderTodos X
-
-// Get DOM elements for individual notes X
-// generateTodoDOM X
-
-// Get the DOM elements for list summary X
-// generateSummaryDOM X
